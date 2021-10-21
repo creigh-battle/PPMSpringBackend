@@ -1,4 +1,4 @@
-package repositories;
+package com.creighbattle.repositories;
 
 import com.creighbattle.domain.Project;
 import org.springframework.data.repository.CrudRepository;
