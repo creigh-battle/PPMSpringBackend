@@ -14,16 +14,24 @@ public class ProjectService {
 
     public Project saveOrUpdateProject(Project project) {
 
-        try{
+        try {
             project.setProjectIdentifier(project.getProjectIdentifier().toUpperCase());
             return projectRepository.save(project);
         } catch (Exception e) {
             throw new ProjectIdException("Project ID '" + project.getProjectIdentifier().toUpperCase()
-            + "' Already Exists");
+                    + "' Already Exists");
         }
 
+    }
 
+    public Project findProjectByIdentifier(String projectId) {
 
+        Project project = projectRepository.findByProjectIdentifier(projectId.toUpperCase());
+
+        if (project == null) {
+            throw new ProjectIdException("Project does not exist");
+        }
+        return project;
     }
 
 }
