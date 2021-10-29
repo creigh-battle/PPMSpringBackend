@@ -5,6 +5,7 @@ public class ProjectIdExceptionResponse {
     private String projectIdentifier;
 
     public ProjectIdExceptionResponse(String projectIdentifier) {
+        System.out.println(projectIdentifier);
         this.projectIdentifier = projectIdentifier;
     }
 
