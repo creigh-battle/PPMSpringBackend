@@ -1,6 +1,7 @@
 package com.creighbattle.web;
 
 import com.creighbattle.domain.Project;
+import com.creighbattle.services.MapValidationErrorService;
 import com.creighbattle.services.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,18 +25,15 @@ public class ProjectController {
     @Autowired
     private ProjectService projectService;
 
+    @Autowired
+    private MapValidationErrorService mapValidationErrorService;
+
     @PostMapping("")
     public ResponseEntity<?> createNewProject(@Valid @RequestBody Project project, BindingResult result) {
 
-        if (result.hasErrors()) {
+        ResponseEntity<?> errorMap = mapValidationErrorService.MapValidationService(result);
+        if (errorMap != null) return errorMap;
 
-            Map<String, String> errorMap = new HashMap<>();
-
-            result.getFieldErrors().forEach(fieldError ->
-                    errorMap.put(fieldError.getField(), fieldError.getDefaultMessage()));
-
-            return new ResponseEntity<Map<String, String>>(errorMap, HttpStatus.BAD_REQUEST);
-        }
 
 
         Project project1 = projectService.saveOrUpdateProject(project);
