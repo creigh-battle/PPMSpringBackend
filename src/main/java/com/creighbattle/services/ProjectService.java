@@ -13,7 +13,6 @@ public class ProjectService {
     private ProjectRepository projectRepository;
 
     public Project saveOrUpdateProject(Project project) {
-
         try {
             project.setProjectIdentifier(project.getProjectIdentifier().toUpperCase());
             return projectRepository.save(project);
@@ -48,5 +47,7 @@ public class ProjectService {
 
         projectRepository.delete(project);
     }
+
+  
 
 }
