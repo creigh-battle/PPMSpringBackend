@@ -2,9 +2,11 @@ package com.creighbattle.services;
 
 import com.creighbattle.domain.Backlog;
 import com.creighbattle.domain.Project;
+import com.creighbattle.domain.User;
 import com.creighbattle.exceptions.ProjectIdException;
 import com.creighbattle.repositories.BacklogRepository;
 import com.creighbattle.repositories.ProjectRepository;
+import com.creighbattle.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,8 +19,18 @@ public class ProjectService {
     @Autowired
     private BacklogRepository backlogRepository;
 
-    public Project saveOrUpdateProject(Project project) {
+    @Autowired
+    private UserRepository userRepository;
+
+    public Project saveOrUpdateProject(Project project, String username) {
         try {
+
+            User user = userRepository.findByUsername(username);
+
+            project.setUser(user);
+            project.setProjectLeader(user.getUsername());
+            project.setProjectIdentifier(project.getProjectIdentifier().toUpperCase());
+
             project.setProjectIdentifier(project.getProjectIdentifier().toUpperCase());
 
             if (project.getId() == null) {
