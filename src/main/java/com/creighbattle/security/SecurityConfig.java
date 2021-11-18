@@ -18,6 +18,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import static com.creighbattle.security.SecurityConstants.H2_URL;
 import static com.creighbattle.security.SecurityConstants.SIGN_UP_URLS;
 
+
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(
